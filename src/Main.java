@@ -3,20 +3,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class Main {
-
-
   public static void main(String[] args) {
-
     if (args.length == 0) {
       printUsage();
     } else if (args[0].equals("-l")) {
       listTasks();
-    } else if (args[0].equals("-a") && args.length > 2) {
+    } else if (args[0].equals("-a") && args.length > 1) {
       addTask(args[1]);
-  }
+    }
   }
 
   private static void listTasks() {
@@ -36,20 +33,23 @@ public class Main {
     }
   }
 
+  public static void removeTask() {
+    Path path = Paths.get("data.csv");
+  }
+
+
   public static void addTask(String newTask) {
     Path path = Paths.get("data.csv");
     try {
       List<String> data = Files.readAllLines(path);
-      data.add(3, newTask);
-      for (int i = 0; i < data.size(); i++) {
-        System.out.println(i + 1 + " - " + data.get(i));
-      }
+      String task = newTask;
+      data.add(newTask);
+      Files.write(path, data);
     } catch (IOException ex) {
       ex.printStackTrace();
       System.out.println("Error.");
     }
   }
-
 
   public static void printUsage() {
     Path path = Paths.get("usageinfos.txt");
