@@ -15,6 +15,9 @@ public class Main {
       addTask(args[1]);
     } else if (args[0].equals("-r") && args.length > 1) {
       removeTask(Integer.parseInt(args[1]));
+    } else {
+      System.out.println("Unsupported argument.");
+      printUsage();
     }
   }
 
@@ -48,6 +51,20 @@ public class Main {
       System.out.println("Error.");
     }
   }
+
+//  public static void checkTask(String taskToCheck) {
+//    Path path = Paths.get("data.csv");
+//    try {
+//      List<String> data = Files.readAllLines(path);
+//      if (data.size() > 2) {
+//
+//      }
+//      Files.write(path, data);
+//    } catch (IOException ex) {
+//      ex.printStackTrace();
+//      System.out.println("Error.");
+//    }
+//  }
 
 
   public static void addTask(String newTask) {
