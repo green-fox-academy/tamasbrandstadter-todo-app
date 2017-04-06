@@ -9,13 +9,14 @@ public class Main {
 
   public static void main(String[] args) {
 
-    if(args.length == 0) {
+    if (args.length == 0) {
       printUsage();
     } else if (args[0].equals("-l")) {
       listTasks();
-    } else if (args[0].equals("-a Feed the monkey")) {
-      addTask();
+    } else if (args[0].equals("-a")) {
+      addTask("Feed the Monkey");
     }
+  }
 
 
   private static void listTasks() {
@@ -26,7 +27,7 @@ public class Main {
         System.out.println("No todos for today! :)");
       } else {
         for (int i = 0; i < data.size(); i++) {
-          System.out.println(i+1 + " - " + data.get(i));
+          System.out.println(i + 1 + " - " + data.get(i));
         }
       }
     } catch (IOException ex) {
@@ -35,16 +36,21 @@ public class Main {
     }
   }
 
-  public static void addTask() {
+  public static void addTask(String task) {
     Path path = Paths.get("data.csv");
     try {
       List<String> data = Files.readAllLines(path);
-      
+      data.add(3, task);
+      for (int i = 0; i < data.size(); i++) {
+        System.out.println(i + 1 + " - " + data.get(i));
+      }
+
     } catch (IOException ex) {
       ex.printStackTrace();
       System.out.println("Error.");
     }
   }
+
 
   public static void printUsage() {
     Path path = Paths.get("usageinfos.txt");
