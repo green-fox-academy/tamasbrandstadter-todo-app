@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -13,11 +14,10 @@ public class Main {
       printUsage();
     } else if (args[0].equals("-l")) {
       listTasks();
-    } else if (args[0].equals("-a")) {
-      addTask("Feed the Monkey");
-    }
+    } else if (args[0].equals("-a") && args.length > 2) {
+      addTask(args[1]);
   }
-
+  }
 
   private static void listTasks() {
     Path path = Paths.get("data.csv");
@@ -36,15 +36,14 @@ public class Main {
     }
   }
 
-  public static void addTask(String task) {
+  public static void addTask(String newTask) {
     Path path = Paths.get("data.csv");
     try {
       List<String> data = Files.readAllLines(path);
-      data.add(3, task);
+      data.add(3, newTask);
       for (int i = 0; i < data.size(); i++) {
         System.out.println(i + 1 + " - " + data.get(i));
       }
-
     } catch (IOException ex) {
       ex.printStackTrace();
       System.out.println("Error.");
