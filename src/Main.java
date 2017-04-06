@@ -8,16 +8,23 @@ import java.util.List;
 public class Main {
 
   private final static String FILE_NAME = "data.csv";
+  private final static String USAGE_INFOS = "usageinfos.txt";
 
   public static void main(String[] args) {
-    List<String> rawLines = readLinesFromFile();
+    List<String> rawLines;
+
+    if (args.length == 0) {
+      rawLines = readLinesFromFile();
+      splitFile(rawLines);
+    }
+
+
   }
 
 
   public static List<String> readLinesFromFile() {
-    Path path = Paths.get(FILE_NAME);
+    Path path = Paths.get(USAGE_INFOS);
     List<String> rawLines;
-
     try {
       rawLines = Files.readAllLines(path);
     } catch (IOException ex) {
@@ -37,4 +44,12 @@ public class Main {
   }
 
 
+  public static void splitFile(List<String> rawLines) {
+    for (String line : rawLines) {
+      System.out.println(line);
+    }
+  }
 }
+
+
+
