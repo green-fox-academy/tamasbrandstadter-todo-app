@@ -13,7 +13,8 @@ public class Main {
       listTasks();
     } else if (args[0].equals("-a") && args.length > 1) {
       addTask(args[1]);
-    }
+    } else if (args[0].equals("-r") && args.length > 1) {
+      removeTask();
   }
 
   private static void listTasks() {
@@ -33,8 +34,19 @@ public class Main {
     }
   }
 
-  public static void removeTask() {
+  public static void removeTask(int taskToRemove) {
     Path path = Paths.get("data.csv");
+    try {
+      List<String> data = Files.readAllLines(path);
+      if (data.size() > 2) {
+        data.remove(taskToRemove - 1);
+
+      }
+      Files.write(path, data);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      System.out.println("Error.");
+    }
   }
 
 
