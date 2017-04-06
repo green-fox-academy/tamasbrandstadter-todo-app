@@ -12,17 +12,22 @@ public class Main {
 
   public static void main(String[] args) {
     List<String> rawLines;
+    List<String> usageInfoLines;
+    List<String> listLines;
 
-    if (args.length == 0) {
-      rawLines = readLinesFromFile();
+
+
+    if (args[0].equals("-l")) {
+      listLines = readLinesFromData();
+      splitFile(listLines);
+    } else if (args.length == 0) {
+      rawLines = readLinesFromTxt();
       splitFile(rawLines);
     }
-
-
   }
 
 
-  public static List<String> readLinesFromFile() {
+  public static List<String> readLinesFromTxt() {
     Path path = Paths.get(USAGE_INFOS);
     List<String> rawLines;
     try {
@@ -34,6 +39,19 @@ public class Main {
     return rawLines;
   }
 
+
+  public static List<String> readLinesFromData() {
+    Path path2 = Paths.get(FILE_NAME);
+    List<String> fileNameLines;
+    try {
+      fileNameLines = Files.readAllLines(path2);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      fileNameLines = new ArrayList<>();
+    }
+    return fileNameLines;
+  }
+
   public static void writeLinesToFile(List<String> inputText) {
     Path path = Paths.get(FILE_NAME);
     try {
@@ -43,13 +61,14 @@ public class Main {
     }
   }
 
-
   public static void splitFile(List<String> rawLines) {
     for (String line : rawLines) {
       System.out.println(line);
     }
+
   }
 }
+
 
 
 
