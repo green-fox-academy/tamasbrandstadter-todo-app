@@ -24,8 +24,17 @@ public class Main {
       ex.printStackTrace();
       rawLines = new ArrayList<>();
     }
-
     return rawLines;
-
   }
+
+  public static void writeLinesToFile(List<String> inputText) {
+    Path path = Paths.get(FILE_NAME);
+    try {
+      Files.write(path, inputText);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+
 }
