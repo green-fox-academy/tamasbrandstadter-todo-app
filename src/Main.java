@@ -14,7 +14,8 @@ public class Main {
     } else if (args[0].equals("-a") && args.length > 1) {
       addTask(args[1]);
     } else if (args[0].equals("-r") && args.length > 1) {
-      removeTask();
+      removeTask(Integer.parseInt(args[1]));
+    }
   }
 
   private static void listTasks() {
@@ -40,7 +41,6 @@ public class Main {
       List<String> data = Files.readAllLines(path);
       if (data.size() > 2) {
         data.remove(taskToRemove - 1);
-
       }
       Files.write(path, data);
     } catch (IOException ex) {
