@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -14,8 +13,10 @@ public class Main {
       printUsage();
     } else if (args[0].equals("-l")) {
       listTasks();
-      }
+    } else if (args[0].equals("-a Feed the monkey")) {
+      addTask();
     }
+
 
   private static void listTasks() {
     Path path = Paths.get("data.csv");
@@ -34,8 +35,16 @@ public class Main {
     }
   }
 
-
-
+  public static void addTask() {
+    Path path = Paths.get("data.csv");
+    try {
+      List<String> data = Files.readAllLines(path);
+      
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      System.out.println("Error.");
+    }
+  }
 
   public static void printUsage() {
     Path path = Paths.get("usageinfos.txt");
@@ -48,11 +57,7 @@ public class Main {
       ex.printStackTrace();
       System.out.println("Error.");
     }
-
-
   }
-
-
 }
 
 
