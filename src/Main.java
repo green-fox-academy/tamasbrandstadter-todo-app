@@ -7,67 +7,59 @@ import java.util.List;
 
 public class Main {
 
-  private final static String FILE_NAME = "data.csv";
-  private final static String USAGE_INFOS = "usageinfos.txt";
 
   public static void main(String[] args) {
-    List<String> rawLines;
-    List<String> usageInfoLines;
-    List<String> listLines;
 
+    if(args.length == 0) {
+      printUsage();
+    } else if (args[0].equals("-l")) {
+      listTasks();
 
-
-    if (args[0].equals("-l")) {
-      listLines = readLinesFromData();
-      splitFile(listLines);
-    } else if (args.length == 0) {
-      rawLines = readLinesFromTxt();
-      splitFile(rawLines);
+      }
     }
-  }
 
-
-  public static List<String> readLinesFromTxt() {
-    Path path = Paths.get(USAGE_INFOS);
-    List<String> rawLines;
+  private static void listTasks() {
+    Path path = Paths.get("data.csv");
     try {
-      rawLines = Files.readAllLines(path);
+      List<String> data = Files.readAllLines(path);
+      if (data.size() == 0) {
+        System.out.println("No todos for today! :)");
+      } else {
+        for (int i = 0; i < data.size(); i++) {
+          System.out.println(data.get(i));
+        }
+      }
     } catch (IOException ex) {
       ex.printStackTrace();
-      rawLines = new ArrayList<>();
+      System.out.println("Error.");
     }
-    return rawLines;
   }
 
 
-  public static List<String> readLinesFromData() {
-    Path path2 = Paths.get(FILE_NAME);
-    List<String> fileNameLines;
+
+
+  public static void printUsage() {
+    Path path = Paths.get("usageinfos.txt");
     try {
-      fileNameLines = Files.readAllLines(path2);
+      List<String> usageInfos = Files.readAllLines(path);
+      for (int i = 0; i < usageInfos.size(); i++) {
+        System.out.println(usageInfos.get(i));
+      }
     } catch (IOException ex) {
       ex.printStackTrace();
-      fileNameLines = new ArrayList<>();
-    }
-    return fileNameLines;
-  }
-
-  public static void writeLinesToFile(List<String> inputText) {
-    Path path = Paths.get(FILE_NAME);
-    try {
-      Files.write(path, inputText);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-  }
-
-  public static void splitFile(List<String> rawLines) {
-    for (String line : rawLines) {
-      System.out.println(line);
+      System.out.println("Error.");
     }
 
+
   }
+
+
 }
+
+
+
+
+
 
 
 
