@@ -14,7 +14,6 @@ public class Main {
       printUsage();
     } else if (args[0].equals("-l")) {
       listTasks();
-
       }
     }
 
@@ -26,7 +25,7 @@ public class Main {
         System.out.println("No todos for today! :)");
       } else {
         for (int i = 0; i < data.size(); i++) {
-          System.out.println(data.get(i));
+          System.out.println(i+1 + " - " + data.get(i));
         }
       }
     } catch (IOException ex) {
