@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-
 public class Main {
   public static void main(String[] args) {
     if (args.length == 0) {
@@ -15,8 +14,11 @@ public class Main {
       addTask(args[1]);
     } else if (args[0].equals("-r") && args.length > 1) {
       removeTask(Integer.parseInt(args[1]));
+    } else if (args[0].equals("-c") && (args.length > 1)) {
+      checkTask(Integer.parseInt(args[1]));
     } else {
       System.out.println("Unsupported argument.");
+      System.out.println("");
       printUsage();
     }
   }
@@ -52,20 +54,19 @@ public class Main {
     }
   }
 
-//  public static void checkTask(String taskToCheck) {
-//    Path path = Paths.get("data.csv");
-//    try {
-//      List<String> data = Files.readAllLines(path);
-//      if (data.size() > 2) {
-//
-//      }
-//      Files.write(path, data);
-//    } catch (IOException ex) {
-//      ex.printStackTrace();
-//      System.out.println("Error.");
-//    }
-//  }
-
+  public static void checkTask(int taskToCheck) {
+    Path path = Paths.get("data.csv");
+    try {
+      List<String> data = Files.readAllLines(path);
+      String newString = data.get(taskToCheck-1);
+      newString = "[X]" + newString;
+      data.set(taskToCheck-1, newString);
+      Files.write(path, data);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      System.out.println("Error.");
+    }
+  }
 
   public static void addTask(String newTask) {
     Path path = Paths.get("data.csv");
